@@ -1,0 +1,58 @@
+import java.util.Scanner;
+
+//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
+// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+public class Main {
+    public static void main(String[] args) {
+        int ort=0;
+        Scanner reader = new Scanner(System.in);
+
+        System.out.print("Dersin adını giriniz: ");
+        String dersAdi = reader.nextLine();//Dersin adı alındı
+
+        System.out.print("Derse ait kaç adet değerlendirme kriteri var: ");
+        int kriterSayisi = reader.nextInt();//Değerlendirme sayısı kullanıcının girmesi için dizi oluşturuldu
+
+        String[] kriterAdi = new String[kriterSayisi];
+        int[] kriterEtkisi = new int[kriterSayisi];
+
+        for (int i = 0; i < kriterSayisi; i++) {
+            System.out.print((i + 1) + ". Kriterin adı nedir: ");//Vize final gibi kriter isimleri alındı
+            kriterAdi[i] = reader.next();
+            System.out.print((i + 1) + ". Kriterin etkisi: ");//Kriterlerin yüzdesi diziye depolandı
+            kriterEtkisi[i] = reader.nextInt();
+        }
+
+        System.out.print("Kaç tane öğrenci gireceksiniz: ");
+        int ogrenciSayisi = reader.nextInt();
+
+        int[][] not=new int[ogrenciSayisi][kriterSayisi];//Her öğrencinin notunu gruplar halinde depolamak için
+        String[] ogrenciAdi = new String[ogrenciSayisi];//iki boyutlu dizi kullanıldı
+
+        for (int i = 0; i < ogrenciSayisi; i++) {
+            System.out.print((i + 1) + ". Öğrencinin adı soyadı: ");
+            ogrenciAdi[i] = reader.next();//i öğrenci nurmaları için
+            for (int j=0;j<kriterSayisi;j++){
+                System.out.print(kriterAdi[j]+" kriterin notu nedir? ");
+                not[i][j]=reader.nextInt();//j ise not depolamak için
+            }
+        }
+        System.out.println(dersAdi+" Dersinin Notları");
+        for (int i=0;i<kriterSayisi;i++){
+            System.out.print(kriterAdi[i]+"\t");
+        }
+        System.out.print("\t"+"ortalma");
+        System.out.println();
+        for (int i = 0; i < ogrenciSayisi; i++) {
+            System.out.print(ogrenciAdi[i]);
+            for (int j=0;j<kriterSayisi;j++) {
+                System.out.print("  "+not[i][j]+"\t");//öğrenciye ait notları sırayla yazdırdı
+                ort=ort+(not[i][j] * kriterEtkisi[j])/100;//ortalama hesaplandı
+            }
+            System.out.print("  "+ort);
+            ort=0;//Sıradaki öğrencinin ortsını doğru hesaplamak için 0 a tekrar eşitlendi
+            System.out.println();//Sonraki satıra geçmek için
+            }
+        System.out.println();
+    }
+}
